@@ -12,17 +12,59 @@ namespace LB
         static void Main(string[] args)
         {
             List<Emp> myEmp = new List<Emp>();
-        }
-        public static void Menu(string options)
-        {
+            bool keepLooping = true;
 
+            while (keepLooping)
+            {
+                Menu();
+                string userInput = GetInput();
+                switch (userInput)
+                {
+                    case "1":
+                        {
+                            CreateNewEmployee(myEmp);
+                            break;
+                        }
+                    case "2":
+                        {
+                            TerminateEmployee(myEmp);
+                            break;
+                        }
+                    case "3":
+                        {
+                            RaiseEmp(myEmp);
+                            break;
+                        }
+                    case "4":
+                        {
+                            Pay(myEmp);
+                            break;
+                        }
+                    case "5":
+                        {
+                            Display(myEmp);
+                            Console.ReadKey();
+                            break;
+                        }
+                }
+            }
+        }
+
+
+
+
+
+
+        public static void Menu()
+        {
+            Console.Clear();
             Console.WriteLine("1 Create Employee");
             Console.WriteLine("2 Terminate");
             Console.WriteLine("3 Give Raise");
             Console.WriteLine("4 Pay Employee");
             Console.WriteLine("5 Display All Employees");
             Console.WriteLine("6 Exit");
-            string employer = Console.ReadLine();
+
         }
         public static string GetInput()
         {
@@ -47,31 +89,31 @@ namespace LB
             Console.WriteLine("Employee Id To Terminate");
             string a = GetInput();
             bool itemFound = false;
-            
-                foreach (Emp e in fi)
+
+            foreach (Emp e in fi)
+            {
+                if (e.Id == "a")
                 {
-                    if (e.Id == "a")
-                    {
-                        e.Fired();
-                        itemFound = true;
-                    }
+                    e.Fired();
+                    itemFound = true;
                 }
-                if (itemFound == false)
-                {
-                    Console.WriteLine("Employee Not Found");
-                }
+            }
+            if (itemFound == false)
+            {
+                Console.WriteLine("Employee Not Found");
+            }
         }
         public static void RaiseEmp(List<Emp> myE)
         {
             Console.WriteLine("Enter Employee Id To Give Raise");
             string a = GetInput();
             bool itemFound = false;
-            
-            foreach(Emp e in myE)
+
+            foreach (Emp e in myE)
             {
-                if(e.Id == "a")
+                if (e.Id == "a")
                 {
-                    e.Raise(); 
+                    e.Raise();
                     itemFound = true;
                 }
             }
@@ -82,11 +124,23 @@ namespace LB
         }
         public static void Pay(List<Emp> eli)
         {
-            foreach(Emp e in eli)
+            foreach (Emp e in eli)
             {
-                Console.WriteLine(string.Format("{0} has been paid", e.FNAme));
+                DateTime date = new DateTime(0001, 1, 01);
+                if (e.Terminate > date && e.Terminate < DateTime.Now)
+                {
+                    Console.WriteLine(string.Format("{0} has been paid", e.FNAme));
+                }
             }
         }
+        public static void Display(List<Emp> eli)
+        {
+            foreach (Emp e in eli)
+            {
 
+                Console.WriteLine(string.Format("{0}", e.FNAme));
+
+            }
+        }
     }
 }

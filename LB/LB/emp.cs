@@ -24,7 +24,6 @@ namespace LB
             fNAme = first;
             payRate = money;
         }
-
         public double PayRate
         {
             get
@@ -54,7 +53,6 @@ namespace LB
 
             }
         }
-
         public string FNAme
         {
             get
@@ -62,7 +60,6 @@ namespace LB
                 return fNAme;
             }
         }
-
         public string LName
         {
             get
@@ -70,7 +67,6 @@ namespace LB
                 return lName;
             }
         }
-
         public string Id
         {
             get
@@ -78,9 +74,6 @@ namespace LB
                 return id;
             }
         }
-
-       
-
         public double Raise()
         {
             {
@@ -92,6 +85,5 @@ namespace LB
         {
             termination = DateTime.Now;
         }
-
     }
 }
