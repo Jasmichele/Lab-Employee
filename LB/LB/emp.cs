@@ -14,11 +14,13 @@ namespace LB
         string fNAme;
         string lName;
         double payRate;
+        double raise;
+        DateTime termination;
         public string Employee { get; set; }
 
         public Emp(string eNum, string first, double money)
         {
-            Id = eNum;
+            id = eNum;
             fNAme = first;
             payRate = money;
         }
@@ -30,7 +32,13 @@ namespace LB
                 return payRate;
             }
         }
-        public DateTime Terminate { get; }
+        public DateTime Terminate
+        {
+            get
+            {
+                return termination;
+            }
+        }
         public string PayEmployee
         {
             set
@@ -71,6 +79,8 @@ namespace LB
             }
         }
 
+       
+
         public double Raise()
         {
             {
@@ -78,5 +88,10 @@ namespace LB
                 return PayRate * 1.04;
             }
         }
+        public void Fired()
+        {
+            termination = DateTime.Now;
+        }
+
     }
 }

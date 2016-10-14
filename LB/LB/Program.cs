@@ -12,9 +12,10 @@ namespace LB
         static void Main(string[] args)
         {
             List<Emp> myEmp = new List<Emp>();
-            XmlDocument doc = new XmlDocument();
-            //doc.Load("Employes.xml");
-           
+        }
+        public static void Menu(string options)
+        {
+
             Console.WriteLine("1 Create Employee");
             Console.WriteLine("2 Terminate");
             Console.WriteLine("3 Give Raise");
@@ -22,43 +23,70 @@ namespace LB
             Console.WriteLine("5 Display All Employees");
             Console.WriteLine("6 Exit");
             string employer = Console.ReadLine();
+        }
+        public static string GetInput()
+        {
+            return Console.ReadLine();
+        }
+        public static void CreateNewEmployee(List<Emp> p4)
+        {
+            Console.WriteLine("Enter Employee Id");
+            string a = GetInput();
             Console.Clear();
-            if (employer == "1")
-            {
-                Console.WriteLine("Enter Employee Id");
-                string a = Console.ReadLine();
-                Console.Clear();
-                Console.WriteLine("Employees First Name");
-                string b = Console.ReadLine();
-                Console.Clear();
-                Console.WriteLine("Employee Pay Rate");
-                string c = Console.ReadLine();
-                Console.Clear();
-                Emp p1 = new Emp(a, b, Convert.ToDouble(c));
-                myEmp.Add(p1);
-            }
-            else if (employer == "2")
-            {
-                Console.WriteLine("Employee Id To Terminate");
-                string a = Console.ReadLine();
-                foreach (Emp e in myEmp)
+            Console.WriteLine("Employees First Name");
+            string b = GetInput();
+            Console.Clear();
+            Console.WriteLine("Employee Pay Rate");
+            string c = GetInput();
+            Console.Clear();
+            Emp p1 = new Emp(a, b, Convert.ToDouble(c));
+            p4.Add(p1);
+        }
+        public static void TerminateEmployee(List<Emp> fi)
+        {
+            Console.WriteLine("Employee Id To Terminate");
+            string a = GetInput();
+            bool itemFound = false;
+            
+                foreach (Emp e in fi)
                 {
                     if (e.Id == "a")
                     {
-                        e.Terminate();
+                        e.Fired();
+                        itemFound = true;
                     }
                 }
-
-
-            }
-
-
-            using (XmlWriter writer = XmlWriter.Create("Employee.xml"))
+                if (itemFound == false)
+                {
+                    Console.WriteLine("Employee Not Found");
+                }
+        }
+        public static void RaiseEmp(List<Emp> myE)
+        {
+            Console.WriteLine("Enter Employee Id To Give Raise");
+            string a = GetInput();
+            bool itemFound = false;
+            
+            foreach(Emp e in myE)
             {
-                writer.WriteStartDocument();
-                writer.WriteStartElement("Company");
-
+                if(e.Id == "a")
+                {
+                    e.Raise(); 
+                    itemFound = true;
+                }
+            }
+            if (itemFound == false)
+            {
+                Console.WriteLine("Employee Not Found");
             }
         }
+        public static void Pay(List<Emp> eli)
+        {
+            foreach(Emp e in eli)
+            {
+                Console.WriteLine(string.Format("{0} has been paid", e.FNAme));
+            }
+        }
+
     }
 }
