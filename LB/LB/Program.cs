@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.IO;
 
 namespace LB
 {
@@ -11,6 +12,9 @@ namespace LB
     {
         static void Main(string[] args)
         {
+            ReadFile();
+
+            ReadFile();
             List<Emp> myEmp = new List<Emp>();
             bool keepLooping = true;
 
@@ -38,6 +42,7 @@ namespace LB
                     case "4":
                         {
                             Pay(myEmp);
+                            Console.ReadKey();
                             break;
                         }
                     case "5":
@@ -46,15 +51,26 @@ namespace LB
                             Console.ReadKey();
                             break;
                         }
+                    case "6":
+                        {
+                            Save(myEmp);
+                            keepLooping = false;
+                            break;
+                        }
+
                 }
             }
         }
 
+        public static void ReadFile()
+        {
+            string fileName = "C:\\myfiles\\coffee.xml";
 
+            if (File.Exists(fileName))
+            {
 
-
-
-
+            }
+        }
         public static void Menu()
         {
             Console.Clear();
@@ -127,7 +143,7 @@ namespace LB
             foreach (Emp e in eli)
             {
                 DateTime date = new DateTime(0001, 1, 01);
-                if (e.Terminate > date && e.Terminate < DateTime.Now)
+                if (/*e.Terminate > date &&*/ e.Terminate < DateTime.Now)
                 {
                     Console.WriteLine(string.Format("{0} has been paid", e.FNAme));
                 }
@@ -140,6 +156,28 @@ namespace LB
 
                 Console.WriteLine(string.Format("{0}", e.FNAme));
 
+            }
+        }
+        public static void Save(List<Emp> e1)
+        {
+            using (XmlWriter writer = XmlWriter.Create("C:\\myfiles\\coffee.xml"))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Company");
+
+                foreach (Emp e in e1)
+                {
+                    writer.WriteStartElement("Employee");
+
+                    writer.WriteStartElement("Id", e.Id.ToString());
+                    writer.WriteStartElement("Name", e.FNAme);
+                    writer.WriteStartElement("PayRate", e.PayRate.ToString());
+
+                    writer.WriteEndElement();
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
             }
         }
     }
