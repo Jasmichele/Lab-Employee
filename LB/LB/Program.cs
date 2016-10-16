@@ -143,7 +143,7 @@ namespace LB
             foreach (Emp e in eli)
             {
                 DateTime date = new DateTime(0001, 1, 01);
-                if (/*e.Terminate > date &&*/ e.Terminate < DateTime.Now)
+                if (/*e.Terminate > date &&*/ e.Terminate > DateTime.Now)
                 {
                     Console.WriteLine(string.Format("{0} has been paid", e.FNAme));
                 }
