@@ -13,8 +13,6 @@ namespace LB
         static void Main(string[] args)
         {
             ReadFile();
-
-            ReadFile();
             List<Emp> myEmp = new List<Emp>();
             bool keepLooping = true;
 
@@ -55,6 +53,10 @@ namespace LB
                         {
                             Save(myEmp);
                             keepLooping = false;
+                            break;
+                        }
+                    default:
+                        {
                             break;
                         }
 
