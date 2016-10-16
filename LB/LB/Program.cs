@@ -11,7 +11,8 @@ namespace LB
     class Program
     {
         static void Main(string[] args)
-        {
+        {  
+            //Jasmine
             ReadFile();
             List<Emp> myEmp = new List<Emp>();
             bool keepLooping = true;
