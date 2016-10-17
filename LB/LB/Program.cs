@@ -12,7 +12,7 @@ namespace LB
     {
         static void Main(string[] args)
         {  
-            //Jasmine
+            
             ReadFile();
             List<Emp> myEmp = new List<Emp>();
             bool keepLooping = true;
@@ -91,6 +91,7 @@ namespace LB
         }
         public static void CreateNewEmployee(List<Emp> p4)
         {
+            double newNum;
             Console.WriteLine("Enter Employee Id");
             string a = GetInput();
             Console.Clear();
@@ -145,11 +146,12 @@ namespace LB
         {
             foreach (Emp e in eli)
             {
-                DateTime date = new DateTime(0001, 1, 01);
-                if (/*e.Terminate > date &&*/ e.Terminate > DateTime.Now)
+                //DateTime date = new DateTime(0001, 1, 01);
+                if (e.Terminate != DateTime.MinValue)
                 {
                     Console.WriteLine(string.Format("{0} has been paid", e.FNAme));
                 }
+                
             }
         }
         public static void Display(List<Emp> eli)

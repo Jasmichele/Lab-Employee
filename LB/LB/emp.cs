@@ -83,7 +83,7 @@ namespace LB
         }
         public void Fired()
         {
-            termination = DateTime.Now;
+            termination = DateTime.MinValue;
         }
     }
 }
