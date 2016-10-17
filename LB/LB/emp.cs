@@ -15,6 +15,7 @@ namespace LB
         string lName;
         double payRate;
         double raise;
+       
         DateTime termination;
         public string Employee { get; set; }
 
@@ -23,6 +24,7 @@ namespace LB
             id = eNum;
             fNAme = first;
             payRate = money;
+           
         }
         public double PayRate
         {

@@ -11,10 +11,18 @@ namespace LB
     class Program
     {
         static void Main(string[] args)
-        {  
-            
-            ReadFile();
+        {
+            string fileName = "C:\\myfiles\\coffee.xml";
             List<Emp> myEmp = new List<Emp>();
+
+            if(File.Exists(fileName))
+            {
+                ReadFile(fileName, myEmp);
+            }
+            else
+            {
+                FileNotFound(fileName);
+            }
             bool keepLooping = true;
 
             while (keepLooping)
@@ -60,18 +68,52 @@ namespace LB
                         {
                             break;
                         }
-
                 }
             }
         }
 
-        public static void ReadFile()
+        public static void ReadFile(string fileNAme, List<Emp> e)
         {
-            string fileName = "C:\\myfiles\\coffee.xml";
-
-            if (File.Exists(fileName))
+            if (File.Exists(fileNAme))
             {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(fileNAme);
+                XmlNode comNode = doc.DocumentElement.SelectSingleNode("/company");
 
+                foreach(XmlNode child in comNode.ChildNodes)
+                {
+                    string empId = "";
+                    string empName = "";
+                    double empPayRate = 0;
+
+                    foreach (XmlNode granchild in child.ChildNodes)
+                    {
+                        switch(granchild.Name)
+                        {
+                            case "Id":
+                                {
+                                    empId = granchild.InnerText;
+                                    break;
+                                }
+                            case "Name":
+                                {
+                                    empName = granchild.InnerText;
+                                    break;
+                                }
+                            case "PayRate":
+                                {
+                                    empPayRate = Convert.ToDouble(granchild.InnerText);
+                                    break;
+                                }
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        Emp p1 = new Emp(empId, empName, empPayRate);
+                        e.Add(p1);
+                    }
+                }
             }
         }
         public static void Menu()
@@ -83,7 +125,6 @@ namespace LB
             Console.WriteLine("4 Pay Employee");
             Console.WriteLine("5 Display All Employees");
             Console.WriteLine("6 Exit");
-
         }
         public static string GetInput()
         {
@@ -91,7 +132,6 @@ namespace LB
         }
         public static void CreateNewEmployee(List<Emp> p4)
         {
-            double newNum;
             Console.WriteLine("Enter Employee Id");
             string a = GetInput();
             Console.Clear();
@@ -146,12 +186,11 @@ namespace LB
         {
             foreach (Emp e in eli)
             {
-                //DateTime date = new DateTime(0001, 1, 01);
-                if (e.Terminate != DateTime.MinValue)
+                DateTime date = new DateTime(0001, 1, 01);
+                if (e.Terminate < date && e.Terminate < DateTime.MinValue)
                 {
                     Console.WriteLine(string.Format("{0} has been paid", e.FNAme));
                 }
-                
             }
         }
         public static void Display(List<Emp> eli)
@@ -174,9 +213,9 @@ namespace LB
                 {
                     writer.WriteStartElement("Employee");
 
-                    writer.WriteStartElement("Id", e.Id.ToString());
-                    writer.WriteStartElement("Name", e.FNAme);
-                    writer.WriteStartElement("PayRate", e.PayRate.ToString());
+                    writer.WriteElementString("Id", e.Id.ToString());
+                    writer.WriteElementString("Name", e.FNAme);
+                    writer.WriteElementString("PayRate", e.PayRate.ToString());
 
                     writer.WriteEndElement();
                 }
@@ -184,6 +223,22 @@ namespace LB
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
+        }
+        public static void FileNotFound(string fileName)
+        {
+            Console.WriteLine("File doesn't exist, New file created");
+            Console.ReadKey();
+
+            using (XmlWriter writer = XmlWriter.Create(fileName))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("company");
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+
+
         }
     }
 }
