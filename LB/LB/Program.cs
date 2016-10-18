@@ -78,7 +78,7 @@ namespace LB
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(fileNAme);
-                XmlNode comNode = doc.DocumentElement.SelectSingleNode("/company");
+                XmlNode comNode = doc.DocumentElement.SelectSingleNode("/Company");
 
                 foreach(XmlNode child in comNode.ChildNodes)
                 {
